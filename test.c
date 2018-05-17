@@ -3,46 +3,40 @@
 
 /*
 
-    void EscreveNoArquivo(char charq[], int maxidx, char nvarq[]){
+um arquivo em que sera salvo os nomes dos
+arquivos.
 
-        FILE *f;
-        f = fopen(nvarq,"a");
+indexarq.txt
 
-        int idx = 0;
 
-        for(idx = 0; idx < maxidx; idx++){
-            fputc(charq[idx],nvarq);
-        }
+EscreveNoArquivo("Guarda o Nome deste arquivo\n", 1000, "indexarq.txt");
 
-        fclose(f);
-    }
 
 */
 void NovoArquivo(char nvarq[]);
 void Zeramtx(char nome[],int maxidx);
-void Escreva(char nome[],int arq);
+void Escreva(char nome[],int arq, char frase[]);
 void EscreveNoArquivo(char charq[], int maxidx, char nvarq[]);
 
 
 
 int main()
 {
-
-
-
     char nome[1000];
     char narq[1000];
     Zeramtx(nome,1000);
     Zeramtx(narq,1000);
     int opc = 0;
 
-while(opc != 9){
+    while(opc != 9){
 
     printf("==== LISTA DE OPÇÕES ====\n");
     printf("1. Novo Arquivo\n");
     printf("2. Escrever no Arquivo\n");
+    printf("3. TESTES \n");
     printf("9. Saida\n\n");
     printf(">");
+
 
     scanf("%d",&opc);
 
@@ -50,22 +44,31 @@ while(opc != 9){
 
     switch(opc){
     case 1:
-        Escreva(nome,1);
+        Zeramtx(nome,1000);
+        Zeramtx(narq,1000);
+        Escreva(nome,1,"Escreva o nome do arquivo seguido de \'#\'\n>");
         NovoArquivo(nome);
+        EscreveNoArquivo(nome, 1000, "indexarq.txt");
         break;
     case 2:
-        Escreva(nome,0);
-        Escreva(narq,1);
+        Zeramtx(nome,1000);
+        Zeramtx(narq,1000);
+        Escreva(nome,0,"Escreva qualquer frase ou palavra seguido de \'#\'\n>");
+        Escreva(narq,1,"Escreva o nome do arquivo seguido de \'#\'\n>");
         EscreveNoArquivo(nome,1000,narq);
         break;
+    case 3:
+        printf("OS TESTES SÃO TESTADOS AQUI\n");
+        break;
     case 9:
-        printf("Saindo do programa...\nFIM\n");
+        printf("O Programa será encerrado...\n FIM\n");
         break;
     default:
          printf ("Valor invalido!\n");
     }
 
-}
+    }
+
     return 0;
 }
 
@@ -84,10 +87,10 @@ void Zeramtx(char nome[],int maxidx){
     }
 }
 
-void Escreva(char nome[],int arq){
+void Escreva(char nome[],int arq, char frase[]){
     int cont = 0;
     char c = '\0';
-    printf("Digite o nome do arquivo seguido de \"#\"\n>");
+    printf("%s",frase);
     while(c != '#'){
         c = getchar();
         if(c != '#'){
@@ -128,10 +131,12 @@ void EscreveNoArquivo(char charq[], int maxidx, char nvarq[]){
     FILE *f;
     f = fopen(nvarq,"a");
     int idx = 0;
+int chva = 0;
     for(idx = 0; idx < maxidx; idx++){
-       if(charq[idx] != '\0'){        
-           fputc(charq[idx],nvarq);
-       }
+        if(charq[idx] != '\0'){
+            fputc(charq[idx],f);
+        }
+
     }
     fclose(f);
 }
