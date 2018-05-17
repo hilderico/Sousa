@@ -3,19 +3,12 @@
 
 /*
 
-    void EscreveNoArquivo(char charq[], int maxidx, char nvarq[]){
+    um arquivo em que sera salvo os nomes dos
+arquivos.
 
-        FILE *f;
-        f = fopen(nvarq,"a");
+indexarq.txt
+EscreveNoArquivo("Guarda o Nome deste arquivo\n", 1000, "indexarq.txt");
 
-        int idx = 0;
-
-        for(idx = 0; idx < maxidx; idx++){
-            fputc(charq[idx],nvarq);
-        }
-
-        fclose(f);
-    }
 
 */
 void NovoArquivo(char nvarq[]);
@@ -53,6 +46,7 @@ int main()
         Zeramtx(narq,1000);
         Escreva(nome,1,"Escreva o nome do arquivo seguido de \'#\'\n>");
         NovoArquivo(nome);
+        EscreveNoArquivo(nome, 1000, "indexarq.txt");
         break;
     case 2:
         Zeramtx(nome,1000);
@@ -135,9 +129,16 @@ void EscreveNoArquivo(char charq[], int maxidx, char nvarq[]){
     FILE *f;
     f = fopen(nvarq,"a");
     int idx = 0;
+    int chva = 0;
     for(idx = 0; idx < maxidx; idx++){
         if(charq[idx] != '\0'){
             fputc(charq[idx],f);
+        }
+        if(charq[idx] == '\0'){
+            if(chva == 0){
+                fputc('\n',f);
+                chva = 1;
+            }
         }
     }
     fclose(f);
